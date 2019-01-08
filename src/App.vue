@@ -1,20 +1,29 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <g>
+      <rect ></rect>
+    </g>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
-
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import ColorInterploater from '@/util/colorinterpolater';
 @Component({
   components: {
-    HelloWorld,
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  @Prop() public data!: Array<[number,string]>;
+  private mounted() {
+    const data = [[-10, '#3060cf'],
+            [0, '#fffbbc'],
+            [10, '#c4463a']];
+    const colorinter = new ColorInterploater(data as any);
+    (window as any).colorinter = colorinter;
+  }
+
+}
 </script>
 
 <style lang="scss">
